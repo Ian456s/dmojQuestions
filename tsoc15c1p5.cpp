@@ -1,24 +1,24 @@
 #include<bits/stdc++.h>
 using namespace std;
 const int MAX = 105;
-int N, M, W;
+
 int dist[MAX], distAnts[MAX];
 bool vis[MAX];
 vector<int> adj[MAX];
 int main() {
     cin.sync_with_stdio(0);
     cin.tie(0); cout.tie(0);
-    cin >> N >> M;
-    for(int i = 0; i < M; i++) {
+    int n, m, w; cin >> n >> m;
+    for(int i = 0; i < m; i++) {
         int x, y; cin >> x >> y;
         adj[x].push_back(y);
         adj[y].push_back(x);
     }
-    cin >> W;
+    cin >> w;
     queue<int> q;
-    fill(vis, vis+N+1, false);
-    fill(distAnts, distAnts+N+1, -1);
-    while(W--) {
+    fill(vis, vis+n+1, false);
+    fill(distAnts, distAnts+n+1, -1);
+    while(w--) {
         int x; cin >> x;
         vis[x] = 1;
         distAnts[x] = 0;
@@ -34,8 +34,8 @@ int main() {
             }
         }
     }
-    fill(vis, vis+N+1, false);
-    fill(dist, dist+N+1, -1);
+    fill(vis, vis+n+1, false);
+    fill(dist, dist+n+1, -1);
     dist[1] = 0;
     vis[1] = true;
     q.push(1);
@@ -49,8 +49,8 @@ int main() {
             }
         }
     }
-    if(vis[N]) {
-        cout << dist[N] << "\n";
+    if(vis[n]) {
+        cout << dist[n] << "\n";
     } else {
         cout << "sacrifice bobhob314" << "\n";
     }

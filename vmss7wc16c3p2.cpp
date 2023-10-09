@@ -1,32 +1,39 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-const int MAX = 2005;
-int n, m, a, b;
+
+using ll = long long;
+#define f first
+#define s second
+#define FILL memset(a, b, sizeof(a))
+const int INF = 0x3f3f3f3f;
+const int MAX = 1e5 + 5;
+
 vector<int> adj[MAX];
 bool vis[MAX];
-void dfs(int n) {
-	vis[n] = true;
-	for(auto &neighbour : adj[n]) {
-		if(!vis[neighbour]) {
-			dfs(neighbour);
+int dist[MAX];
+int N, M, A, B;
+int main() {
+    cin.sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+	cin >> N >> M >> A >> B;
+	for(int i = 0; i < M; i++){
+		int u, v; cin >> u >> v;
+		adj[u].push_back(v); adj[v].push_back(u);
+	}
+
+	queue<int> q;
+	q.push(A); vis[A] = true; dist[A] = 0; //starting BFS
+	while(!q.empty()){
+		int cur = q.front(); q.pop();
+		for(int n : adj[cur]){
+			if(!vis[n]){
+				q.push(n); vis[n] = true;
+				dist[n] = dist[cur] + 1;
+			}
 		}
 	}
-}
-int main(){
-	cin.sync_with_stdio(0);
-	cin.tie(0); cout.tie(0);
-	cin >> n >> m >> a >> b;
-	for(int i = 0; i < m; i++){
-		int x, y; cin >> x >> y;
-		adj[x].push_back(y);
-		adj[y].push_back(x);
-	}
-	dfs(a);
-	if(vis[b]) {
-		cout << "GO SHAHIR!" << "\n";
-	} else {
-		cout << "NO SHAHIR!" << "\n";
-	}
-	return 0;
+	cout << (vis[B]? "GO SHAHIR!": "NO SHAHIR!") << "\n";
+
+	
+    return 0;
 }
